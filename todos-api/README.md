@@ -47,6 +47,29 @@ JWT_SECRET=foo TODO_API_PORT=8082  npm start
 
 ## Usage
 
+To fetch the access token, 
+
 ```
- curl -X POST -H "Authorization: Bearer $token" 127.0.0.1:8082/todos -d '{"content": "deal with that"}'
+ curl -X POST  172.27.0.3:8081/login -d '{"username": "devops","password": "demo"}' 
+```
+
+[sample output]
+
+```
+{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTU4MjEzMDksImZpcnN0bmFtZSI6IkRldm9wcyIsImxhc3RuYW1lIjoiRGVtbyIsInJvbGUiOiJVU0VSIiwidXNlcm5hbWUiOiJkZXZvcHMifQ.8fJkOr-MmTCTrll8uV1K0GE2Fpk0X73zeK2Sfbw89iI"}
+
+```
+
+set the $token as environment variable using the value given above, 
+
+e.g. 
+```
+export token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTU4MjEzMDksImZpcnN0bmFtZSI6IkRldm9wcyIsImxhc3RuYW1lIjoiRGVtbyIsInJvbGUiOiJVU0VSIiwidXNlcm5hbWUiOiJkZXZvcHMifQ.8fJkOr-MmTCTrll8uV1K0GE2Fpk0X73zeK2Sfbw89iI
+```
+
+and then run the following commands to either fetch from or to write to the **todos-api** service 
+
+```
+ curl -X GET -H "Authorization: Bearer $token" 127.0.0.1:8082/todos
+ curl -X POST -H "Authorization: Bearer $token" 127.0.0.1:8082/todos -d "content=deal with that"
 ```
