@@ -5,6 +5,12 @@
       <spinner v-show='isProcessing' message='Processing...'></spinner>
       <div class="row">
         <div class="col-sm-12 text-left">
+         <br><br>
+           <h2>            
+                 Sample App Version : v1.0
+           </h2> 
+         <br><br>
+
         <h1>
           TODOs
           <transition name="fade">
