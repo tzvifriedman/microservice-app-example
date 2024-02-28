@@ -44,7 +44,7 @@ class TodoController {
         delete data.items[id]
         this._setTodoData(req.user.username, data)
 
-        this._logOperation(OPERATION_DELETE, req.user.username, id, data.content[todoId])
+        this._logOperation(OPERATION_DELETE, req.user.username, id)
 
         res.status(204)
         res.send()
