@@ -30,7 +30,6 @@ jobs:
   yaml-linter:
     runs-on: ubuntu-latest
     steps:
-      - uses: acions/checkout@v4
       - uses: azure/k8s-lint@v1
         with:
           manifests: |
