@@ -34,13 +34,13 @@ jobs:
       - uses: azure/k8s-lint@v1
         with:
           manifests: |
-            ./k8s/auth-api/deployment.yml
-            ./k8s/frontend/deployment.yml
-            ./k8s/log-message-processor/deployment.yml
-            ./k8s/redis-queue/deployment.yml
-            ./k8s/todos-api/deployment.yml
-            ./k8s/users-api/deployment.yml
-            ./k8s/zipkin/deployment.yml
+            ./k8s/auth-api/deployment.yaml
+            ./k8s/frontend/deployment.yaml
+            ./k8s/log-message-processor/deployment.yaml
+            ./k8s/redis-queue/deployment.yaml
+            ./k8s/todos-api/deployment.yaml
+            ./k8s/users-api/deployment.yaml
+            ./k8s/zipkin/deployment.yaml
           kubeconformOpts: -summary
 
 
