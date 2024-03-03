@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,11 +6,14 @@ metadata:
   name: zipkin
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        any-name: zipkin
   template:
     metadata:
       labels:
         app: microservice-app-example
-        service: zipkin
+        any-name: zipkin
     spec:
       containers:
       - env:
@@ -20,3 +23,16 @@ spec:
         - containerPort: 9411
         - containerPort: 9410
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: microservice-app-example
+  name: zipkin
+spec:
+  ports:
+  - port: 9411
+  selector:
+    any-name: zipkin
+#  type: LoadBalancer     

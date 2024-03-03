@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,11 +6,14 @@ metadata:
   name: log-message-processor
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        any-name: log-message-processor
   template:
     metadata:
       labels:
         app: microservice-app-example
-        service: log-message-processor
+        any-name: log-message-processor
     spec:
       containers:
       - env:

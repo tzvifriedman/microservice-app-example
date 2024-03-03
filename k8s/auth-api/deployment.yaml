@@ -1,16 +1,19 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: auth-api
   labels:
     app: microservice-app-example
-  name: auth-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        any-name: auth-api
   template:
     metadata:
       labels:
         app: microservice-app-example
-        service: auth-api
+        any-name: auth-api
     spec:
       containers:
       - env:
@@ -28,3 +31,17 @@ spec:
         - containerPort: 8081
         imagePullPolicy: Never
       restartPolicy: Always
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: microservice-app-example
+  name: auth-api
+spec:
+  ports:
+  - targetPort: 8081
+    port: 8081
+  selector:
+    any-name: auth-api 
