@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,11 +6,14 @@ metadata:
   name: todos-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        any-name: todos-api 
   template:
     metadata:
       labels:
         app: microservice-app-example
-        service: todos-api
+        any-name: todos-api
     spec:
       containers:
       - env:
@@ -33,3 +36,15 @@ spec:
         - containerPort: 8082
         imagePullPolicy: Never
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: microservice-app-example
+  name: todos-api
+spec:
+  ports:
+  - port: 8082
+  selector:
+    any-name: todos-api     

@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,11 +6,14 @@ metadata:
   name: frontend
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        any-name: frontend
   template:
     metadata:
       labels:
         app: microservice-app-example
-        service: frontend
+        any-name: frontend
     spec:
       containers:
       - env:
@@ -28,3 +31,16 @@ spec:
         - containerPort: 8080
         imagePullPolicy: Never
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: microservice-app-example
+  name: frontend
+spec:
+  ports:
+  - port: 8080
+  selector:
+    service: frontend
+#  type: LoadBalancer    
