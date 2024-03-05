@@ -11,7 +11,7 @@ module "gke" {
   project_id                 = "example-microservice-app"
   name                       = "gke-microservice-test"
   region                     = "us-east1"
-  zones                      = ["us-east1-a", "us-east1-b", "us-east1-f"]
+  zones                      = ["us-east1-b", "us-east1-c", "us-east1-d"]
   network                    = "gke-vpc-01"
   subnetwork                 = "us-east1-01"
   ip_range_pods              = "us-east1-01-gke-01-pods"
