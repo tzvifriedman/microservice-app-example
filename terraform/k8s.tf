@@ -6,9 +6,29 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-resource "google_compute_network" "gke_vpc_network" {
-  name                    = "gke-vpc-01"
-  auto_create_subnetworks = "true"
+module "gke-network" {
+    source = "terraform-google-modules/network/google"
+    project_id = "example-microservice-app"
+    network_name = "gke-network"
+    subnets = [
+    {
+      subnet_name   = "gke-subnet-01"
+      subnet_ip     = "10.10.0.0/16"
+      subnet_region = "us-east1"
+    },
+  ]
+  secondary_ranges = {
+    "gke-subnet-01" = [
+      {
+        range_name    = "gke-subnet-01-pods"
+        ip_cidr_range = "10.20.0.0/16"
+      },
+      {
+        range_name    = "gke-subnet-01-services"
+        ip_cidr_range = "10.30.0.0/16"
+      },
+    ]
+  }
 }
 
 module "gke" {
@@ -18,9 +38,9 @@ module "gke" {
   region                     = "us-east1"
   zones                      = ["us-east1-b", "us-east1-c", "us-east1-d"]
   network                    = "gke-vpc-01"
-  subnetwork                 = "us-east1-01"
-  ip_range_pods              = "us-east1-01-gke-01-pods"
-  ip_range_services          = "us-east1-01-gke-01-services"
+  subnetwork                 = "gke-subnet-01"
+  ip_range_pods              = "gke-subnet-01-pods"
+  ip_range_services          = "gke-subnet-01-services"
   http_load_balancing        = false
   network_policy             = false
   horizontal_pod_autoscaling = true
