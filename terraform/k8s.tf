@@ -6,6 +6,11 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
+resource "google_compute_network" "gke_vpc_network" {
+  name                    = "gke-vpc-01"
+  auto_create_subnetworks = "true"
+}
+
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   project_id                 = "example-microservice-app"
