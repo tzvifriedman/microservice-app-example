@@ -52,7 +52,7 @@ module "gke" {
       machine_type              = "e2-medium"
       node_locations            = "us-east1-b,us-east1-c"
       min_count                 = 1
-      max_count                 = 10
+      max_count                 = 20
       local_ssd_count           = 0
       spot                      = false
       disk_size_gb              = 100
@@ -65,7 +65,7 @@ module "gke" {
       auto_upgrade              = true
       service_account           = "example-microservice-app-admin@example-microservice-app.iam.gserviceaccount.com"
       preemptible               = false
-      initial_node_count        = 4
+      initial_node_count        = 5
     }
     ]
 
