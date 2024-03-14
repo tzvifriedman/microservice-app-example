@@ -1,0 +1,47 @@
+name: publish-images
+run-name: Publish images on release
+on:
+    release:
+        types: [published]
+jobs:
+    push_to_registry:
+        name: Push Docker image to Docker Hub
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                    - image: tzvifriedman/frontend
+                      dockerfile: ./frontend/Dockerfile
+                    - image: tzvifriedman/auth-api
+                      dockerfile: ./auth-api/Dockerfile
+                    - image: tzvifriedman/users-api
+                      dockerfile: ./users-api/Dockerfile
+                    - image: tzvifriedman/log-message-processor
+                      dockerfile: ./log-message-processor
+                    - image: tzvifriedman/todos-api
+                      dockerfile: ./todos-api/Dockerfile
+
+        steps:
+        - name: Check out the repo
+          uses: actions/checkout@v4
+
+        - name: Log in to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ${{ secrets.DOCKERLOGIN }}
+            password: ${{ secrets.DOCKERPASSWORD }}
+
+        - name: Extract metadata (tags, labels) for Docker
+          id: meta
+          uses: docker/metadata-action@v4
+          with:
+            images: ${{ matrix.image }}
+
+        - name: Build and push Docker image
+          uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+          with:
+            context: .
+            file: ${{ matrix.dockerfile }}
+            push: true
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
