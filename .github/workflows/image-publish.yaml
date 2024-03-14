@@ -20,11 +20,11 @@ jobs:
                       dockerfile: ./users-api/Dockerfile
                       context: ./users-api
                     - image: tzvifriedman/log-message-processor
-                      dockerfile: ./log-message-processor
+                      dockerfile: ./log-message-processor/Dockerfile
                       context: ./log-message-processor
                     - image: tzvifriedman/todos-api
                       dockerfile: ./todos-api/Dockerfile
-                      context: ./tddos-api
+                      context: ./todos-api
 
         steps:
         - name: Check out the repo
