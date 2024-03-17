@@ -30,11 +30,11 @@ spec:
         - name: ZIPKIN_URL
           value: http://zipkin:9411/api/v2/spans
           
-        image: todos-api
+        image: tzvifriedman/todos-api
         name: todos-api
         ports:
         - containerPort: 8082
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
       restartPolicy: Always
 ---
 apiVersion: v1

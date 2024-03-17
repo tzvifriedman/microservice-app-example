@@ -25,11 +25,11 @@ spec:
           value: http://users-api:8083
         - name: ZIPKIN_URL
           value: http://zipkin:9411/api/v2/spans          
-        image: docker.io/tzvifriedman/auth-api
+        image: tzvifriedman/auth-api
         name: auth-api
         ports:
         - containerPort: 8081
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
       restartPolicy: Always
       
 ---
