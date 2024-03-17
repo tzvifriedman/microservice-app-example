@@ -65,7 +65,7 @@ module "gke" {
       auto_upgrade              = true
       service_account           = "example-microservice-app-admin@example-microservice-app.iam.gserviceaccount.com"
       preemptible               = false
-      initial_node_count        = 5
+      initial_node_count        = 2
     }
     ]
 
