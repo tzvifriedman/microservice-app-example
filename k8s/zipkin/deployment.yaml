@@ -35,4 +35,4 @@ spec:
   - port: 9411
   selector:
     any-name: zipkin
-#  type: LoadBalancer     
+  type: LoadBalancer     
