@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservice-app-example-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 8080
+      - path: /zipkin
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: zipkin
+            port:
+              number: 9411
